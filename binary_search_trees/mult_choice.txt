@@ -1,0 +1,8 @@
+1. How can you compute the total number of nodes in a "perfect" binary tree if you know the height?
+(2^h - 1) where h is the height of the binary tree
+
+2. What is one of the primary weaknesses of the binary search tree as a data structure?
+The performance degrades if it becomes unbalanced
+
+3. What does the phrase "in-order successor" mean when we are talking about a node in a binary search tree?
+The node that has the next lowest value.

@@ -1,0 +1,40 @@
+1. What are the two primary categories for tree traversals?
+    a. (1) Height-First, (2) Width-First
+    b. (1) Depth-First, (2) Breadth-First
+    c. Leaf-First, Branch-First
+    d. Level-First, Branch-First
+Answer: b. Depth-first, Breadth-first
+
+2. select the three different types of depth-first traversals
+    CORRECT preorder, postorder, inorder
+    INCORRECT breadth-first, level-order, none of the above
+
+3. select the correct ordering of steps for an inorder depth-first traversal
+    a. left, visit, right
+    -------------------------------
+    1. go to the left of subtree
+    2. visit node
+    3. go to the right of subtree
+    -------------------------------
+
+    b. visit node, left right
+
+    c. visit node, right, left
+
+    d. right, left, visit
+
+    e. left, right, visit
+
+
+    d. right, visit, left
+
+
+4. select the correct ordering of steps for a preorder depth-first traversal
+visit, left, right
+
+5. select ordering of steps for a postorder depth-first traversal
+left, right, visit
+
+6. what data structure would you use in order to write an iterative depth-first traversal method
+stack, heap, queue, BST
+stack
