@@ -1,0 +1,54 @@
+Graphs and Trees Relationship
+
+1. Which of the following statements is true:
+a. Only some trees are graphs, but no graphs are trees
+* b. All trees are graphs, but not all graphs are trees
+c. All graphs are trees, but not all trees are graphs
+
+
+Directed Vs Undirected Graphs
+2. Choose the answer that best describes the difference between a directed and undirected graph
+    a. Directed graphs best represent relationships that can be described as "mutual exchanges", while undirected
+    graphs best represent relationships that can be described as "one way".
+
+    b. Directed graphs can only be unidirectional but undirected graphs are always bidirectional
+
+    c. Directed Graphs and undirected graphs are only different if they have edge weights that are associated with them
+
+    * d. Directed graphs best represent relationships that can be described as "one way", while undirected graphs best
+    represent relationships that can be described as "mutual exchanges".
+
+
+Graph Adjacency List Representation
+3. Choose the python code that correctly represents the graph shown in the picture using an adjacency list
+    a   b   c   d   e   f
+a   X   1   0   0   0   0
+b   1   X   3   2   1   0
+c   0   3   X   0   4   0
+d   0   2   0   X   2   0
+e   0   1   4   2   X   3
+f   0   0   0   0   3   X
+
+    a   b   c   d   e   f
+a  [[0, 1, 0, 0, 0, 0],
+b   [1, 0, 3, 2, 1, 0],
+c   [0, 3, 0, 0, 4, 0],
+d   [0, 2, 0, 0, 2, 0],
+e   [0, 1, 4, 2, 0, 3],
+f   [0, 0, 0, 0, 3, 0]]
+
+{
+    "A": {"B": 1},
+    "B": {"C: 3, "D": 2, "E": 1},
+    C: {E: 4}
+
+
+}
+
+
+
+Graph Representation in Python Interpreter
+3. Given the following `Vertex` and `Graph` classes, choose the Python Code (in interactive interpreter) that would
+correctly create the graph pictured below
+
+
