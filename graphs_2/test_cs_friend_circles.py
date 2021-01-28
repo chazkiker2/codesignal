@@ -27,7 +27,6 @@ class MyTestCase(unittest.TestCase):
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]
         ]
         expected = 8
-
         actual = cs_friend_circles(input_arr)
         self.assertEqual(actual, expected)
 
