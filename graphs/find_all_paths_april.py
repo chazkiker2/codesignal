@@ -27,7 +27,7 @@ def traversal(node, path, out_Matrix):
         traversal(edge, path.copy(), out_Matrix)
 
 
-def csFindAllPathsFromAToB(graph):
+def cs_find_all_paths_from_a_to_b(graph):
     out_Matrix = []
     if graph == []:  # if you are passed an empty graph:
         return []
@@ -37,6 +37,24 @@ def csFindAllPathsFromAToB(graph):
     return out_Matrix
 
 
-print(csFindAllPathsFromAToB([[1, 2], [3], [3], []]))
-print(csFindAllPathsFromAToB([[4, 3, 1], [3, 2, 4], [3], [4], []]))
-print(csFindAllPathsFromAToB([[1], []]))
+def find_paths_a_to_b_antony(graph):
+    x = []
+    if graph == []:
+        return []
+
+    def node_path(n, path):
+        new_path = path + [n]
+        for i in graph[n]:
+            node_path(i, new_path)
+
+        if n == len(graph) - 1:
+            x.append(new_path)
+
+        return x
+
+    return node_path(0, [])
+
+
+print(cs_find_all_paths_from_a_to_b([[1, 2], [3], [3], []]))
+print(cs_find_all_paths_from_a_to_b([[4, 3, 1], [3, 2, 4], [3], [4], []]))
+print(cs_find_all_paths_from_a_to_b([[1], []]))
