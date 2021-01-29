@@ -1,6 +1,7 @@
 import unittest
 
-from cs_friend_circles import cs_friend_circles
+from friend_circles_alt import micah_refactored as cs_friend_circles
+# from cs_friend_circles import cs_friend_circles
 
 
 class MyTestCase(unittest.TestCase):
