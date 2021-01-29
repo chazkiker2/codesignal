@@ -39,7 +39,7 @@ def cs_find_all_paths_from_a_to_b(graph):
 
 def find_paths_a_to_b_antony(graph):
     x = []
-    if graph == []:
+    if not graph:
         return []
 
     def node_path(n, path):
