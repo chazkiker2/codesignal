@@ -51,36 +51,49 @@ The score of the students is between 1 and 100.
 
 def avg_top_five(scores):
     score_dic = {}
-    for stud_id, score in scores:
-        if stud_id not in score_dic:
-            score_dic[stud_id] = []
+    for student_id, score in scores:
+        if student_id not in score_dic:
+            score_dic[student_id] = []
 
-        score_dic[stud_id].append(score)
+        score_dic[student_id].append(score)
 
-    print(score_dic)
+    for student_id in score_dic:
+        score_dic[student_id].sort()  # sort scores in place from least to greatest
+        score_dic[student_id] = score_dic[student_id][-5:]  # slice last five (greatest five)
 
-    # avg_scores_iter = [[stud_id, avg_score] for stud_id, avg_score in score_dic.items()]
-    # print(avg_scores_iter)
-    top_five = []
-    for stud_id in score_dic:
-        score_dic[stud_id].sort()
-        score_dic[stud_id] = score_dic[stud_id][-5:]
-        avg_score = sum(score_dic[stud_id]) // len(score_dic[stud_id])
-        top_five.append([stud_id, avg_score])
+    # [student_id, average_score] for each student in score_dic
+    top_five_averages = [[stud_id, (sum(score_dic[stud_id]) // len(score_dic[stud_id]))] for stud_id in score_dic]
+    return top_five_averages
 
-    print(score_dic)
-    return top_five
 
-    # avg_scores = []
+def tester(fn, test_case):
+    actual = fn(test_case["input"])
+    print("\n-----------\n")
+    print(f"actual: {actual}, expected: {test_case['expected']}")
+    print(f"Passed: {actual == test_case['expected']}")
+    print("\n")
 
-    # for stud_id in score_dic:
-    #     avg_score = reduce(lambda a, b: a + b, score_dic[stud_id]) // len(score_dic[stud_id])
-    #     int_sum = sum(score_dic[stud_id])
-    #     int_avg = int_sum // len(score_dic[stud_id])
-    #     print(int_avg)
-    #     avg_scores.append([stud_id, avg_score])
 
-    # return avg_scores
+if __name__ == '__main__':
+    test_case_01 = {
+        "input": [[1, 91],
+                  [1, 92],
+                  [2, 93],
+                  [2, 97],
+                  [1, 60],
+                  [2, 77],
+                  [1, 65],
+                  [1, 87],
+                  [1, 100],
+                  [2, 100],
+                  [2, 76]],
+        "expected": [[1, 87],
+                     [2, 88]]
+    }
+    test_case_02 = {
+        "input": [[1, 2]],
+        "expected": [[1, 2]]
+    }
 
-# def avg_top_five(scores):
-#     pass
+    tester(avg_top_five, test_case_01)
+    tester(avg_top_five, test_case_02)

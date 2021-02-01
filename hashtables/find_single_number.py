@@ -25,6 +25,7 @@ from functools import reduce
 
 from collections import Counter
 
+
 def find_single_number(nums):
     return Counter(nums).most_common()[:-2:-1][0][0]
 
