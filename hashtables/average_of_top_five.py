@@ -66,6 +66,24 @@ def avg_top_five(scores):
     return top_five_averages
 
 
+def avg_top_five_alden(scores):
+    scores_dict = {}
+    scores.sort()
+
+    for student_id, score in reversed(scores):
+        if student_id not in scores_dict:
+            scores_dict[student_id] = {"total": 0, "count": 0}
+        if scores_dict[student_id]["count"] < 5:
+            scores_dict[student_id]["total"] += score
+            scores_dict[student_id]["count"] += 1
+
+    res = []
+    for key in reversed(scores_dict):
+        res.append([key, scores_dict[key]["total"] // scores_dict[key]["count"]])
+
+    return res
+
+
 def tester(fn, test_case):
     actual = fn(test_case["input"])
     print("\n-----------\n")
@@ -95,5 +113,7 @@ if __name__ == '__main__':
         "expected": [[1, 2]]
     }
 
-    tester(avg_top_five, test_case_01)
-    tester(avg_top_five, test_case_02)
+    # tester(avg_top_five, test_case_01)
+    # tester(avg_top_five, test_case_02)
+    tester(avg_top_five_alden, test_case_01)
+    tester(avg_top_five_alden, test_case_02)
