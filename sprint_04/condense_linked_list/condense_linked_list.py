@@ -27,9 +27,10 @@ class ListNode(object):
 
 def condense_linked_list_first_pass(node):
     visited = {node.value}
-    init_head = ListNode(node.value)
-    new_head = init_head
+    init_head = new_head = node
     current_node = node.next
+    init_head.next = new_head.next = None
+
     while current_node is not None:
         if current_node.value not in visited:
             visited.add(current_node.value)
