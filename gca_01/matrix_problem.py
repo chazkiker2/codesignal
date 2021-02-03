@@ -25,31 +25,50 @@ matrix2 = [
     ['9', '10', '11', '12', '13', '14', '15', '16']
     ['13', '14', '15', '?', '1', '2', '3', '?']
 ]
+resolve_matrix(matrix2) -> [
+    ['1', '2', '3', '4', '5', '6', '7', '8'],
+    ['5', '6', '7', '8', '9', '10', '11', '12'],
+    ['9', '10', '11', '12', '13', '14', '15', '16'],
+    ['13', '14', '15', '?', '1', '2', '3', '?'],
+]
+
 """
 
 
 def resolve_matrix(matrix):
-    num_tables = len(matrix[0]) // 4
+    num_tables = (len(matrix[0]) // 4)
     tables = {i: [['0'] * 4] * 4 for i in range(num_tables)}
-    print(f"num_tables={num_tables}, tables={tables}")
-    count = 0
+    sets = {i: set() for i in range(num_tables)}
+    print(f"num_tables={num_tables}, tables={tables}, sets={sets}")
+    count = num_tables - 1
 
-    for row in range(len(matrix)):
-        for col in range(len(matrix[row])):
-            print(f"row={row}, col={col}, el={matrix[row][col]}")
-            print(f"(col//4)={col // 4}")
-            print(f"(col%4)={col % 4}")
-            print(f"(col-1)%4={(col - 1) % 4}")
-            tables[col//4][row][col%4] = matrix[row][col]
-            # print(f"tables[{count}][{row}][{col % 4}]={tables[count][row][col % 4]}")
-            # tables[col % 4][row][(col - 1) % 4] = matrix[row][col]
+    while count >= 0:
+        for i in range(4):
+            start = i + (count * 4)
 
-            # try:
-            #     num_int = int(matrix[row][col])
-            #     tables[count][row][col % 4] = num_int
-            # except ValueError:
+            for idx, item in enumerate(matrix[i][start:start + 4]):
+                if item == "?":
+                    print((i, idx))
+                else:
+                    sets[count].add(int(item))
 
-    # print(tables)
+        print(sets[count])
+        count -= 1
+        # sets[count].add(matrix[i][start:start + 4])
+
+    for num in range(1, 17):
+        for i in range(len(sets)):
+            if num not in sets[i]:
+                print(num)
+    # print(sets)
+
+    # for row in range(len(matrix)):
+    #     for col in range(len(matrix[row])):
+    #         print(f"row={row}, col={col}, el={matrix[row][col]}")
+    #         print(f"(col//4)={col // 4}")
+    #         print(f"(col%4)={col % 4}")
+    #         print(f"(col-1)%4={(col - 1) % 4}")
+    #         tables[col // 4][row][col % 4] = matrix[row][col]
     return tables
 
 
@@ -71,19 +90,19 @@ if __name__ == '__main__':
     actual1 = resolve_matrix(matrix1)
     print(f"TEST 2: \nactual: {actual1}, \nexpected: {expected1}")
     print(f"\npassed: {actual1 == expected1}")
-    matrix2 = [
-        ['1', '2', '3', '4', '5', '6', '7', '8'],
-        ['5', '6', '7', '8', '9', '10', '11', '12'],
-        ['9', '10', '11', '12', '13', '14', '15', '16'],
-        ['13', '14', '15', '?', '1', '2', '3', '?'],
-    ]
-    expected2 = [
-        ['1', '2', '3', '4', '5', '6', '7', '8'],
-        ['5', '6', '7', '8', '9', '10', '11', '12'],
-        ['9', '10', '11', '12', '13', '14', '15', '16'],
-        ['13', '14', '15', '16', '1', '2', '3', '16'],
-    ]
-    actual2 = resolve_matrix(matrix2)
-    print(f"\n\n-----TEST 2: \n")
-    print(f"actual: {actual2}, \nexpected: {expected2}")
-    print(f"\npassed: {actual2 == expected2}")
+    # matrix2 = [
+    #     ['1', '2', '3', '4', '5', '6', '7', '8'],
+    #     ['5', '6', '7', '8', '9', '10', '11', '12'],
+    #     ['9', '10', '11', '12', '13', '14', '15', '16'],
+    #     ['13', '14', '15', '?', '1', '2', '3', '?'],
+    # ]
+    # expected2 = [
+    #     ['1', '2', '3', '4', '5', '6', '7', '8'],
+    #     ['5', '6', '7', '8', '9', '10', '11', '12'],
+    #     ['9', '10', '11', '12', '13', '14', '15', '16'],
+    #     ['13', '14', '15', '16', '1', '2', '3', '16'],
+    # ]
+    # actual2 = resolve_matrix(matrix2)
+    # print(f"\n\n-----TEST 2: \n")
+    # print(f"actual: {actual2}, \nexpected: {expected2}")
+    # print(f"\npassed: {actual2 == expected2}")

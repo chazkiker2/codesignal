@@ -30,7 +30,8 @@ class BadHashTable:
 class HashTable:
     def __init__(self, capacity=32):
         self.capacity = capacity
-        self.table = [None] * self.capacity
+        # self.table = [None] * self.capacity
+        self.table = [[] for _ in range(self.capacity)]
 
     @staticmethod
     def _fnv1(key):
@@ -66,3 +67,8 @@ class HashTable:
     def get(self, key):
         hashed_key = self._hash_index(key)
         return self.table[hashed_key]
+
+# ht = HashTable()
+# print(ht.table)
+# ht.table[1].append(4)
+# print(ht.table)

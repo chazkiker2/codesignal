@@ -44,14 +44,28 @@ Shouldn't be an issue for most, but if you're doing a weird solution like I did,
  you might fail one of the hidden tests if you try to manually sort with the described order.
 """
 
-
+# example comments for this test_case:
+# strings = ['apt', 'pat', 'ear', 'tap', 'are', 'arm']
 def group_anagrams(strings):
+    # "".join(sorted(string)) will alphabetize each entry in strings array
+    # and thus group_map will only have as many keys as there are different combos
+    # if word is "pat", "tap", or "apt", then key is "apt"
     group_map = {''.join(sorted(string)): [] for string in strings}
+    print(group_map)  # -> {'apt': [], 'aer': [], 'amr': []}
+
     for word in strings:
+        # same key situation as before; if word is "pat", key is "apt"
         key = ''.join(sorted(word))
+        # put this instance of the word in its appropriate key slot
         group_map[key].append(word)
 
-    return [value for value in group_map.values()]
+    print(group_map)
+    # group_map = {
+    #   'apt': ['apt', 'pat', 'tap'],
+    #   'aer': ['ear', 'are'],
+    #   'amr': ['arm']
+    #   }
+    return [value for value in group_map.values()]  # convert dict values into array
 
     # set_list = [set(string) for string in strings]
     # set_map = {i: set(string) for i, string in enumerate(strings)}
