@@ -1,0 +1,28 @@
+Given a string (the input will be in the form of an array of characters), write a function that returns the reverse of the given string.
+
+Examples:
+
+csReverseString(["l", "a", "m", "b", "d", "a"]) -> ["a", "d", "b", "m", "a", "l"]
+csReverseString(["I", "'", "m", " ", "a", "w", "e", "s", "o", "m", "e"]) -> ["e", "m", "o", "s", "e", "w", "a", " ", "m", "'", "I"]
+Notes:
+
+Your solution should be "in-place" with O(1) space complexity. Although many in-place functions do not return the modified input, in this case you should.
+You should try using a "two-pointers approach".
+Avoid using any built-in reverse methods in the language you are using (the goal of this challenge is for you to implement your own method).
+
+
+For the actual solution: I first saved a reversed version of chars by slicing the chars array with two semi-colons and a -1 (chars[::-1]) to a pointer variable called rev. Then, I returned that pointer variable.
+
+For the process in general, I tried returning that slice directly (without success). I honestly am unsure why, I'll have to look into that at a separate time.
+
+Then I tried returning reversed(chars) without success. Again, unsure why this doesn't work in Python but something to look into.
+
+Finally, I tried saving the reversed slice to a variable before returning and it worked like a charm
+
+
+
+Space: There is an assignment to a variable O(1)
+
+Time: A slice operation occurs, which under the hood is probably O(n).
+
+I do not believe there would be a more efficient approach to this problem.
