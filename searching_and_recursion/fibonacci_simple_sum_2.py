@@ -3,7 +3,8 @@
 #
 #
 #
-For a given positive integer fib_ceil determine if it can be represented as a sum of two Fibonacci numbers (possibly equal).
+For a given positive integer fib_ceil determine if it can be represented
+as a sum of two Fibonacci numbers (possibly equal).
 
 Example
 
@@ -38,7 +39,7 @@ Guaranteed constraints:
 
 true if fib_ceil can be represented as Fi + Fj, false otherwise.
 """
-import itertools
+from itertools import combinations
 
 
 def fibonacci_seq_in_range(fib_ceil):
@@ -63,7 +64,7 @@ def fibonacci_simple_sum_2(num):
 
     fibs_in_range = fibonacci_seq_in_range(num)
 
-    for fib_a, fib_b in itertools.combinations(fibs_in_range, 2):
+    for fib_a, fib_b in combinations(fibs_in_range, 2):
         if fib_a + fib_b == num:
             return True
 

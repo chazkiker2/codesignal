@@ -37,6 +37,6 @@ if __name__ == '__main__':
     print(test1_m2)
 
     test2_m1 = sorted_two_sum_01([3, 4, 5], 8)  # -> [0, 2]
-    test2_m2 = sorted_two_sum_02([0, 1], 1)  # -> [0, 1]
+    # test2_m2 = sorted_two_sum_02([3, 4, 5], 8)  # -> [0, 1]
     print(test2_m1)
-    print(test2_m1)
+    print(test2_m2)

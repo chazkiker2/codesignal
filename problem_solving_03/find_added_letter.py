@@ -29,3 +29,9 @@ def find_added_letter(s1, s2):
 if __name__ == '__main__':
     res1 = find_added_letter("bcde", "bcdef")  # -> "f"
     print(res1)
+    res2 = find_added_letter("", "z")  # -> "z"
+    print(res2)
+    res3 = find_added_letter("b", "bb")  # -> "b"
+    print(res3)
+    res4 = find_added_letter("bf", "bfb")  # -> "b"
+    print(res4)

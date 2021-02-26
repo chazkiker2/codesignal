@@ -90,15 +90,11 @@ class Tree(object):
 def get_height(root):
     if root is None:
         return 0
-    left_height = get_height(root.left)
-    right_height = get_height(root.right)
-    return max(left_height, right_height) + 1
+    return max(get_height(root.left), get_height(root.right)) + 1
 
 
 def balanced_binary_tree(root):
     if root is None:
         return True
-
     lh, rh = get_height(root.left), get_height(root.right)
-
     return (abs(lh - rh) <= 1) and balanced_binary_tree(root.left) and balanced_binary_tree(root.right)

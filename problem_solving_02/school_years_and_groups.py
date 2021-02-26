@@ -22,7 +22,7 @@ def years_and_groups_03(years, groups):
     lst = [f"{year + 1}{ascii_lowercase[group_num]}"
            for group_num in range(groups)
            for year in range(years)]
-    
+
     return ", ".join(lst)
 
 
