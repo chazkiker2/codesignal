@@ -53,9 +53,6 @@ c: [b]
 
 [output] integer
 
-
-"""
-"""
 MORE TESTS
 [
 [1,0,0,0,0,0,0,0,0,1,0,0,0,0,0],
@@ -94,7 +91,9 @@ expected output: 8
 [0,0,0,0,0,0,0,0,0,1,0,0,0,0,1]
 ]
 expected output: 3
+
 """
+
 from collections import deque
 
 
@@ -108,7 +107,7 @@ def depth_first_traversal(starting_vertex, visited=None):
     stack = deque()
     stack.append(starting_vertex)
 
-    if visited is None:
+    if not visited:
         visited = set()
 
     while len(stack) > 0:
@@ -137,6 +136,28 @@ def cs_friend_circles(matrix):
                 depth_first_traversal(friend_nodes[key], visited)
 
     return friend_groups
+
+
+def friend_circles(matrix):
+    visited = set()
+    stack = deque()
+    count = 0
+
+    for i in range(len(matrix)):
+
+        if i not in visited:
+            count += 1
+            stack.append(i)
+
+        while stack:
+            node = stack.pop()
+            visited.add(node)
+
+            for j, friend in enumerate(matrix[node]):
+                if friend == 1 and j not in visited:
+                    stack.append(j)
+
+    return count
 
 
 if __name__ == '__main__':

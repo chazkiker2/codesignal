@@ -21,8 +21,10 @@ def find_paths(graph):
     if not graph:
         return []
 
+    # initialize a vertex with the value of index for each index in graph
     nodes = [Vertex(i) for i in range(len(graph))]
 
+    # for each node, sublist in a joined iteration of nodes and graph
     for node, graph_sublist in zip(nodes, graph):
         node.edges = [nodes[index] for index in graph_sublist]
 
@@ -31,6 +33,7 @@ def find_paths(graph):
 
 
 if __name__ == '__main__':
-    print(find_paths([[1, 2], [3], [3], []]))
-    print(find_paths([[4, 3, 1], [3, 2, 4], [3], [4], []]))
-    print(find_paths([[1], []]))
+    print(find_paths([[1, 2], [3], [3], []]))  # -> [[0, 1, 3] [0, 2, 3]]
+    print(find_paths(
+        [[4, 3, 1], [3, 2, 4], [3], [4], []]))  # -> [[0, 4], [0, 3, 4], [0, 1, 3, 4], [0, 1, 2, 3, 4], [0, 1, 4]]
+    print(find_paths([[1], []]))  # -> [[0, 1]]

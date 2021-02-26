@@ -21,8 +21,6 @@ Note: You should be able to develop a solution that has O(n) time complexity.
 
 [output] integer
 """
-from functools import reduce
-
 from collections import Counter
 
 

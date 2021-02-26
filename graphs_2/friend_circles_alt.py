@@ -5,6 +5,7 @@ def micah_refactored(matrix):
     visited = set()
     stack = deque()
     count = 0
+
     for i in range(len(matrix)):
         if i not in visited:
             count += 1
@@ -15,6 +16,7 @@ def micah_refactored(matrix):
             for j, friend in enumerate(matrix[node]):
                 if friend == 1 and j not in visited:
                     stack.append(j)
+
     return count
 
 
