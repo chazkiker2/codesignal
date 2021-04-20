@@ -100,7 +100,7 @@ class Generation(list):
             "left": (i, j - 1),
         }
 
-        return {k: (coords[0] % M, coords[1] % N) for k, coords in original.items()}
+        return {k: (ni % M, nj % N) for k, (ni, nj) in original.items()}
 
     def count_live_neighbors(self, i, j):
         neighbor_dict = self.get_neighbor_coords(i, j)
@@ -157,18 +157,18 @@ class Generation(list):
 
 if __name__ == "__main__":
     # some initial pattern to kick off the Game
-    seed = [
-        [0, 0, 1],
-        [0, 1, 1],
-        [0, 0, 1],
-    ]
     # seed = [
-    #     [0, 0, 0, 0, 0],
-    #     [0, 0, 1, 0, 0],
-    #     [0, 0, 1, 0, 0],
-    #     [0, 0, 1, 0, 0],
-    #     [0, 0, 0, 0, 0],
+    #     [0, 0, 1],
+    #     [0, 1, 1],
+    #     [0, 0, 1],
     # ]
+    seed = [
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 0, 0],
+    ]
 
     current_generation = Generation(seed)
     current_generation.live()
