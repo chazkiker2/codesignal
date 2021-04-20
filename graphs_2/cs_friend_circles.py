@@ -141,28 +141,47 @@ def cs_friend_circles(matrix):
 def friend_circles(matrix):
     visited = set()
     stack = deque()
+    circle_list = []
+    circle_list_02 = set()
+    temp = []
     count = 0
 
-    for i in range(len(matrix)):
-
-        if i not in visited:
+    for is_friend in range(len(matrix)):
+        if is_friend not in visited:
+            circle_list.append(visited.copy())
+            # temp = visited.copy()
             count += 1
-            stack.append(i)
+            stack.append(is_friend)
 
         while stack:
             node = stack.pop()
             visited.add(node)
 
-            for j, friend in enumerate(matrix[node]):
-                if friend == 1 and j not in visited:
-                    stack.append(j)
+            for peer, is_friend in enumerate(matrix[node]):
+                if is_friend == 1 and peer not in visited:
+                    stack.append(peer)
 
+
+
+        # tup = tuple(visited.copy())
+        temp = visited.copy()
+        res = visited.copy() - temp.copy()
+        print(f"res: {res}, temp: {temp}")
+        circle_list_02.add(tup)
+        print(f"circle_list_02: {circle_list_02}")
+        # circle_list.append(visited.copy())
+
+    print(circle_list)
+    print(circle_list_02)
     return count
 
 
 if __name__ == '__main__':
-    res_1 = cs_friend_circles([[1, 1, 0], [1, 1, 0], [0, 0, 1]])
-    assert res_1 == 2
+    # 1 1 0
+    # 1 1 0
+    # 0 0 1
+    res_1 = friend_circles([[1, 1, 0], [1, 1, 0], [0, 0, 1]])
+    print(res_1 == 2)
 
 # class Vertex:
 #     def __init__(self, value):

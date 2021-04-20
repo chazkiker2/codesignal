@@ -46,6 +46,8 @@ The string that results by merging s1 and s2 using your special merge function.
 
 """
 
+from collections import deque, Counter
+
 
 def merge_strings(s1, s2):
     s1_counter = Counter(s1)
