@@ -77,7 +77,7 @@ class Generation(list):
         self.current_gen = list(sub.copy() for sub in self)
 
     def __str__(self):
-        return "\n" + "\n".join("\t".join(str(el) for el in sub_array) for sub_array in self)
+        return "\n" + "\n".join("  ".join("X" if el != 0 else "." for el in sub_array) for sub_array in self)
 
     def has_life(self):
         for sub_array in self:
@@ -103,13 +103,10 @@ class Generation(list):
         return {k: (ni % M, nj % N) for k, (ni, nj) in original.items()}
 
     def count_live_neighbors(self, i, j):
-        neighbor_dict = self.get_neighbor_coords(i, j)
-        neighbors = [
-            (ni, nj) for ni, nj in neighbor_dict.values()
+        return len([
+            (ni, nj) for ni, nj in self.get_neighbor_coords(i, j).values()
             if self.current_gen[ni][nj] != 0
-        ]
-        num_live_neighbors = len(neighbors)
-        return num_live_neighbors
+        ])
 
     def generate_successor(self):
         current_gen = self.current_gen = list(sub.copy() for sub in self)
@@ -129,24 +126,36 @@ class Generation(list):
                 else:
                     self[i][j] = 0
 
+    def copy(self):
+        return Generation(sub.copy() for sub in self)
+
+    def memoize(self, upper_cap):
+        last_self = self.copy()
+        frame_count = 1
+        cache = {1: last_self}
+        while frame_count < upper_cap:
+            self.generate_successor()
+            if last_self == self:
+                cache.update({i: self.copy() for i in range(frame_count, upper_cap)})
+                break
+            cache[frame_count] = self.copy()
+            last_self = self.copy()
+            frame_count += 1
+        return cache
+
     def live(self):
         print(f"SEED GENERATION {self}")
-
-        last_self = [sub.copy() for sub in self]
+        last_self = self.copy()
         frame_count = 1
         stuck = False
-
         while not stuck and frame_count < 2500:
             self.generate_successor()
             print(f"GENERATION {frame_count} {self}")
-
             if last_self == self:
                 stuck = True
                 break
-
             last_self = [sub.copy() for sub in self.copy()]
             frame_count += 1
-
         if stuck:
             print(f"\nSTUCK AT THIS FRAME{current_generation}")
         elif frame_count == 2500:
@@ -156,7 +165,6 @@ class Generation(list):
 
 
 if __name__ == "__main__":
-    # some initial pattern to kick off the Game
     # seed = [
     #     [0, 0, 1],
     #     [0, 1, 1],
