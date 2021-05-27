@@ -157,26 +157,27 @@ class Generation(list):
             last_self = [sub.copy() for sub in self.copy()]
             frame_count += 1
         if stuck:
-            print(f"\nSTUCK AT THIS FRAME{current_generation}")
+            print(f"\nSTUCK AT THIS FRAME{self}")
         elif frame_count == 2500:
             print("CAPPING OFF FRAMES AT 2500")
         else:
-            print(f"\nNO LIFE TO CONTINUE\n{current_generation}")
+            print(f"\nNO LIFE TO CONTINUE\n{self}")
 
 
 if __name__ == "__main__":
-    # seed = [
-    #     [0, 0, 1],
-    #     [0, 1, 1],
-    #     [0, 0, 1],
-    # ]
-    seed = [
-        [0, 0, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 0, 0],
-    ]
-
-    current_generation = Generation(seed)
+    seeds = {
+        0: [
+            [0, 0, 1],
+            [0, 1, 1],
+            [0, 0, 1],
+        ],
+        1: [
+            [0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0],
+            [0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0],
+        ]
+    }
+    current_generation = Generation(seeds[1])
     current_generation.live()
