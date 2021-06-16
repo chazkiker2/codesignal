@@ -1,5 +1,5 @@
 """
-- decide whether two strings are isomorphic
+Given two words, decide whether they are isomorphic
 
 iso: if you take first string & change each individual letter into another letter, can you end up with second string?
 
@@ -7,9 +7,9 @@ both input strings will be same length
 
 assume all lowercase letters
 
-- egg add
-- paper title
-- foo bar
+- egg add True
+- paper title True
+- foo bar False
 """
 
 
@@ -24,12 +24,11 @@ def map_word(word):
 
 
 def is_iso(word1, word2):
-    res = map_word(word1) == map_word(word2)
-    print(f"{word1} {word2}\t--\t{res}")
-    return res
+    return map_word(word1) == map_word(word2)
 
 
 if __name__ == '__main__':
-    is_iso("egg", "add")
-    is_iso("paper", "title")
-    is_iso("foo", "bar")
+    assert (is_iso("egg", "add") == True)
+    assert (is_iso("egg", "dad") == False)
+    assert (is_iso("paper", "title") == True)
+    assert (is_iso("foo", "bar") == False)
