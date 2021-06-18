@@ -8,23 +8,23 @@ For
 
 t = {
     "value": 5,
-    "left": {
+    "prev": {
         "value": 2,
-        "left": {
+        "prev": {
             "value": 10,
-            "left": null,
-            "right": null
+            "prev": null,
+            "next": null
         },
-        "right": {
+        "next": {
             "value": 4,
-            "left": null,
-            "right": null
+            "prev": null,
+            "next": null
         }
     },
-    "right": {
+    "next": {
         "value": -3,
-        "left": null,
-        "right": null
+        "prev": null,
+        "next": null
     }
 }
 the output should be
@@ -95,12 +95,12 @@ def tree_paths(root):
 #
 #         length += 1
 #
-#         if root.left is None and root.right is None:
+#         if root.prev is None and root.next is None:
 #             strs.append(iter_arr(path))
 #
 #         else:
-#             get_paths_rec(root.left, path, length)
-#             get_paths_rec(root.right, path, length)
+#             get_paths_rec(root.prev, path, length)
+#             get_paths_rec(root.next, path, length)
 #
 #     get_paths_rec(t, path, 0)
 #

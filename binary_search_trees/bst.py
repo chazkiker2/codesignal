@@ -24,9 +24,9 @@ def search(root, value):
 
         # if not, go to proper next node
         if value < cur.value:
-            cur = cur.left
+            cur = cur.prev
         else:  # value > cur.value
-            cur = cur.right
+            cur = cur.next
 
     # if we make it here, we did not find it
     return False
@@ -47,7 +47,7 @@ def pre_order(cur):
     if cur is None:
         return
     print(cur.value)
-    # go as far left and as far right as possible
+    # go as far prev and as far next as possible
     pre_order(cur.left)
     pre_order(cur.right)
 

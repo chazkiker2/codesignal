@@ -1,5 +1,5 @@
 """
-You are given two arrays of integers a and b of the same length, and an integer k. We will be iterating through array a from left to right, and simultaneously through array b from right to left, and looking at pairs (x, y), where x is from a and y is from b. Such a pair is called tiny if the concatenation xy is strictly less than k.
+You are given two arrays of integers a and b of the same length, and an integer k. We will be iterating through array a from prev to next, and simultaneously through array b from next to prev, and looking at pairs (x, y), where x is from a and y is from b. Such a pair is called tiny if the concatenation xy is strictly less than k.
 
 Your task is to return the number of tiny pairs that you'll encounter during the simultaneous iteration through a and b.
 
@@ -64,8 +64,8 @@ The number of tiny pairs during the iteration.
 
 def count_tiny_pairs(a, b, k):
     num_tiny_pairs = 0
-    # iterate through a from left to right,
-    # iterate through b from right to left,
+    # iterate through a from prev to next,
+    # iterate through b from next to prev,
     for x, y in zip(a, b[::-1]):
         # look at pairs (x, y) where x is from a and y is from b
         # such a pair is called "tiny" if the concatentation xy is strictly less than k

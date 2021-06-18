@@ -34,8 +34,8 @@ class Tree(object):
 # class Tree(object):
 #   def __init__(self, x):
 #     self.value = x
-#     self.left = None
-#     self.right = None
+#     self.prev = None
+#     self.next = None
 def min_depth(root: Tree):
     if root is None:
         return 0

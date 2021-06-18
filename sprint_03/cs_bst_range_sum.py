@@ -74,13 +74,13 @@ def cs_bst_range_sum_draft(root, lower, upper):
     def in_order_trav(node):
         nonlocal nodes
 
-        if node.left:
-            in_order_trav(node.left)
+        if node.prev:
+            in_order_trav(node.prev)
 
         nodes.append(node.value)
 
-        if node.right:
-            in_order_trav(node.right)
+        if node.next:
+            in_order_trav(node.next)
 
     in_order_trav(root)
 
@@ -90,8 +90,8 @@ def cs_bst_range_sum_draft(root, lower, upper):
     counting = False
     while len(stack) > 0:
         current = stack.pop()
-        if current.left:
-            stack.append(current.left)
+        if current.prev:
+            stack.append(current.prev)
 
         if current.value == lower:
             counting = True
@@ -102,8 +102,8 @@ def cs_bst_range_sum_draft(root, lower, upper):
         if current.value == upper:
             return counting
 
-        if current.right:
-            stack.append(current.right)
+        if current.next:
+            stack.append(current.next)
 
     return sum_count
 
@@ -117,14 +117,14 @@ def cs_bst_range_sum(root, lower, upper):
     def in_order_trav(node):
         nonlocal nodes
 
-        if node.left:
-            in_order_trav(node.left)
+        if node.prev:
+            in_order_trav(node.prev)
 
         if lower <= node.value <= upper:
             nodes.append(node.value)
 
-        if node.right:
-            in_order_trav(node.right)
+        if node.next:
+            in_order_trav(node.next)
 
     in_order_trav(root)
 
@@ -135,26 +135,26 @@ if __name__ == '__main__':
     input_1 = {
         "root": {
             "value": 10,
-            "left": {
+            "prev": {
                 "value": 5,
-                "left": {
+                "prev": {
                     "value": 3,
-                    "left": None,
-                    "right": None
+                    "prev": None,
+                    "next": None
                 },
-                "right": {
+                "next": {
                     "value": 7,
-                    "left": None,
-                    "right": None
+                    "prev": None,
+                    "next": None
                 }
             },
-            "right": {
+            "next": {
                 "value": 15,
-                "left": None,
-                "right": {
+                "prev": None,
+                "next": {
                     "value": 18,
-                    "left": None,
-                    "right": None
+                    "prev": None,
+                    "next": None
                 }
             }
         },
@@ -162,46 +162,46 @@ if __name__ == '__main__':
         "upper": 15,
     }
     # tree1 = Tree(10)
-    # tree1.right = Tree(7)
-    # tree1.left = Tree(5)
+    # tree1.next = Tree(7)
+    # tree1.prev = Tree(5)
     expected_1 = 32
     actual_1 = cs_bst_range_sum(input_1["root"], input_1["lower"], input_1["upper"])
 
     input_2 = {
         "root": {
             "value": 10,
-            "left": {
+            "prev": {
                 "value": 5,
-                "left": {
+                "prev": {
                     "value": 3,
-                    "left": {
+                    "prev": {
                         "value": 1,
-                        "left": None,
-                        "right": None
+                        "prev": None,
+                        "next": None
                     },
-                    "right": None
+                    "next": None
                 },
-                "right": {
+                "next": {
                     "value": 7,
-                    "left": {
+                    "prev": {
                         "value": 6,
-                        "left": None,
-                        "right": None
+                        "prev": None,
+                        "next": None
                     },
-                    "right": None
+                    "next": None
                 }
             },
-            "right": {
+            "next": {
                 "value": 15,
-                "left": {
+                "prev": {
                     "value": 13,
-                    "left": None,
-                    "right": None
+                    "prev": None,
+                    "next": None
                 },
-                "right": {
+                "next": {
                     "value": 18,
-                    "left": None,
-                    "right": None
+                    "prev": None,
+                    "next": None
                 }
             }
         },
@@ -214,52 +214,52 @@ if __name__ == '__main__':
     input_3 = {
         "root": {
             "value": 1,
-            "left": {
+            "prev": {
                 "value": 2,
-                "left": {
+                "prev": {
                     "value": 5,
-                    "left": None,
-                    "right": {
+                    "prev": None,
+                    "next": {
                         "value": 3,
-                        "left": {
+                        "prev": {
                             "value": 2,
-                            "left": {
+                            "prev": {
                                 "value": 3,
-                                "left": None,
-                                "right": None
+                                "prev": None,
+                                "next": None
                             },
-                            "right": {
+                            "next": {
                                 "value": 1,
-                                "left": None,
-                                "right": None
+                                "prev": None,
+                                "next": None
                             }
                         },
-                        "right": None
+                        "next": None
                     }
                 },
-                "right": None
+                "next": None
             },
-            "right": {
+            "next": {
                 "value": 2,
-                "left": None,
-                "right": {
+                "prev": None,
+                "next": {
                     "value": 3,
-                    "left": {
+                    "prev": {
                         "value": 5,
-                        "left": None,
-                        "right": None
+                        "prev": None,
+                        "next": None
                     },
-                    "right": {
+                    "next": {
                         "value": 2,
-                        "left": {
+                        "prev": {
                             "value": 3,
-                            "left": None,
-                            "right": None
+                            "prev": None,
+                            "next": None
                         },
-                        "right": {
+                        "next": {
                             "value": 1,
-                            "left": None,
-                            "right": None
+                            "prev": None,
+                            "next": None
                         }
                     }
                 }

@@ -80,11 +80,11 @@ class MyTestCase(unittest.TestCase):
             'up_left': (M, N),
             'up': (M, 0),
             'up_right': (M, 1),
-            'right': (0, 1),
+            'next': (0, 1),
             'down_right': (1, 1),
             'down': (1, 0),
             'down_left': (1, N),
-            'left': (0, N)
+            'prev': (0, N)
         }
         actual = self.gen.get_neighbor_coords(0, 0)
         self.assertEqual(expected, actual)

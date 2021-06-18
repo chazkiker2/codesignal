@@ -18,22 +18,22 @@ class Stack:
 
 # queues represent LIFO data structures
 def queue_on_stacks(requests):
-    # left is our permanent storage
-    # each time an element is inserted, it will go on top of left stack
-    # BOTTOM of left stack = FIRST IN
-    # TOP of left stack = LAST IN
+    # prev is our permanent storage
+    # each time an element is inserted, it will go on top of prev stack
+    # BOTTOM of prev stack = FIRST IN
+    # TOP of prev stack = LAST IN
     left = Stack()
 
-    # right is our temporary storage
+    # next is our temporary storage
     # every time we remove an element from our queue_on_stacks storage,
     # we are looking to remove and return the element at the BOTTOM
     # of the LEFT STACK
     #
-    # each time an element is removed, left will move each element over
-    # one by one from the top of the left stack to the top of the right stack
-    # until left stack is empty.
+    # each time an element is removed, prev will move each element over
+    # one by one from the top of the prev stack to the top of the next stack
+    # until prev stack is empty.
     #
-    # then make a copy of TOP of right stack
+    # then make a copy of TOP of next stack
     right = Stack()
 
     def insert(x):

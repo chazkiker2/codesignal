@@ -13,23 +13,23 @@ For
 
 t = {
     "value": 1,
-    "left": {
+    "prev": {
         "value": 2,
-        "left": null,
-        "right": {
+        "prev": null,
+        "next": {
             "value": 3,
-            "left": null,
-            "right": null
+            "prev": null,
+            "next": null
         }
     },
-    "right": {
+    "next": {
         "value": 4,
-        "left": {
+        "prev": {
             "value": 5,
-            "left": null,
-            "right": null
+            "prev": null,
+            "next": null
         },
-        "right": null
+        "next": null
     }
 }
 the output should be
@@ -90,7 +90,7 @@ def traverse_tree(t: Tree) -> List[int]:
         if current is None:
             continue
         nodes.append(current.value)
-        queue.enqueue(current.left)
-        queue.enqueue(current.right)
+        queue.enqueue(current.prev)
+        queue.enqueue(current.next)
 
     return nodes
