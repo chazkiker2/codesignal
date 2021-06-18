@@ -40,13 +40,13 @@ def find_pivot(arr, low, high):
         return mid
     # if mid_idx > low_idx and el at mid is less than the el before
     if mid > low and arr[mid] < arr[mid - 1]:
-        # then the index right before mid is pivot
+        # then the index next before mid is pivot
         return mid - 1
     # if el at low is larger than or the same as mid
     if arr[low] >= arr[mid]:
-        # recurse with the right half
+        # recurse with the next half
         return find_pivot(arr, low, mid - 1)
-    # else, el at mid must be less than the smallest el, recurse with the left half
+    # else, el at mid must be less than the smallest el, recurse with the prev half
     return find_pivot(arr, mid + 1, high)
 
 

@@ -39,8 +39,8 @@ def cs_binary_search(arr, target):
         if arr[middle] == target:  # we found the target at index middle
             return middle
         elif arr[middle] > target:  # else if element at middle is greater than target
-            right = middle - 1  # decrease right index to take left (smaller) half
+            right = middle - 1  # decrease next index to take prev (smaller) half
         else:  # element at middle must be less than target
-            left = middle + 1  # increase left index to take right (larger) half
+            left = middle + 1  # increase prev index to take next (larger) half
 
     return -1

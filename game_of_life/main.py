@@ -22,11 +22,11 @@ def get_neighbor_coords(i, j):
         "up_left": (i - 1, j - 1),
         "up": (i - 1, j),
         "up_right": (i - 1, j + 1),
-        "right": (i, j + 1),
+        "next": (i, j + 1),
         "down_right": (i + 1, j + 1),
         "down": (i + 1, j),
         "down_left": (i + 1, j + 1),
-        "left": (i, j - 1),
+        "prev": (i, j - 1),
     }
 
 

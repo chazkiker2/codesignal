@@ -1,7 +1,7 @@
 """
 You are given a binary tree and you need to write a function that can determine if it is height-balanced.
 
-A height-balanced tree can be defined as a binary tree in which the left and right subtrees of every node differ in height by a maximum of 1.
+A height-balanced tree can be defined as a binary tree in which the prev and next subtrees of every node differ in height by a maximum of 1.
 
 Example 1:
 Given the following tree [5,10,25,None,None,12,3]:
@@ -38,9 +38,9 @@ U.P.E.R.
 Understand:
 Given the root node of a binary tree, I need to determine whether or not the tree to which that node belongs to is balanced.
 I'm returning a boolean output of True or False
-The input node is of type Tree (properties of value, left, right)
+The input node is of type Tree (properties of value, prev, next)
 
-A height-balanced tree can be defined as a binary tree in which the left and right subtrees of every node differ in height by a maximum of 1
+A height-balanced tree can be defined as a binary tree in which the prev and next subtrees of every node differ in height by a maximum of 1
 
 
 
@@ -56,16 +56,16 @@ Given the following tree: [5, 10, 25, None, None, 12, 13] -> true
 root.sub -> l=N    r=NNN
 root.sub_left.height = 1
 root.sub_right.height = 2
-root.left.sub = None
+root.prev.sub = None
 
-root.right.sub -> l = N, r = N
+root.next.sub -> l = N, r = N
     
-root.left = 10
-root.left.right = None
-root.left.left = None
-root.right = 25
-root.right.left = 12
-root.right.right = 13
+root.prev = 10
+root.prev.next = None
+root.prev.prev = None
+root.next = 25
+root.next.prev = 12
+root.next.next = 13
 
    
 Given the following tree: [5, 6, 6, 7, 7, None, None, 8, 8] -> False
