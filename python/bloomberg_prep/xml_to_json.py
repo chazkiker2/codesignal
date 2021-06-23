@@ -51,26 +51,26 @@ def xml_to_json(filename):
     return dom
 
 
-# def xml_to_json_no_rgx(filename):
-#     global dom
-#     token_stream = []
-#     with open(filename) as f:
-#         for line in f:
-#             d1 = "<"
-#             d2 = ">"
-#
-#             for entry in line.strip().split(d1):
-#                 print(f"entry={d1}{entry}")
-#
-#     print(token_stream)
-#     parse_stream(token_stream)
-#     return dom
+def xml_to_json_no_rgx(filename):
+    global dom
+    token_stream = []
+    with open(filename) as f:
+        for line in f:
+            d1 = "<"
+            d2 = ">"
+
+            for entry in line.strip().split(d1):
+                if entry:
+                    entry2 = entry.split(d2)
+                    str_entry2 = f"{entry2}{d2}" if entry2 else ""
+                    print(f"{entry2=}")
+
+                    print(f"{d1}{entry}")
+
+    print(token_stream)
+    parse_stream(token_stream)
+    return dom
 
 
 if __name__ == '__main__':
-    # result_one = xml_to_json_no_rgx("books.xml").copy()
-    # dom = {}
-    print(xml_to_json("books.xml"))
-    # print(result_one == result_two)
-    # print(f"{result_one=}")
-    # print(f"{result_two=}")
+    print(xml_to_json_no_rgx("books.xml"))
