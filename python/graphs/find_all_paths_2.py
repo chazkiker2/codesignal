@@ -1,44 +1,70 @@
-class GraphNode:
-    def __init__(self, value):
-        self.value = value
-        self.edges = []
-
-    def __repr__(self):
-        return f"Node({self.value})"
+import unittest
+from unittest.case import expectedFailure
 
 
-def create_graph(graph):
-    nodes = []
-    for i in range(len(graph)):
-        node = GraphNode(i)
-        nodes.append(node)
-    for i in range(len(graph)):
-        nodes[i].edges = list(map(lambda i: nodes[i], graph[i]))
-        print(nodes[i].edges)
-    return nodes
+all_paths = []
+nodes = {}
 
 
-def traversal(node, path, out_matrix):
-    path.append(node.value)
-    if len(node.edges) < 1:
-        out_matrix.append(path)
-    for edge in node.edges:
-        traversal(edge, path.copy(), out_matrix)
+def traversal(node, current_path):
+    global all_paths, nodes
+
+    current_path.append(node)
+
+    if len(nodes[node]) < 1:
+        all_paths.append(current_path)
+
+    for edge in nodes[node]:
+        traversal(edge, current_path.copy())
 
 
 def find_paths(graph):
-    all_paths = []
+    global all_paths, nodes
 
     if not graph:
         return []
 
-    nodes = create_graph(graph)
-    print(f"nodes={nodes}")
+    nodes = {i: set(connections) for i, connections in enumerate(graph)}
 
-    traversal(nodes[0], [], all_paths)
+    traversal(0, [])
     return all_paths
 
+
+class Test(unittest.TestCase):
+    def test_001(self):
+        self.assertEqual([[0, 1, 3], [0, 2, 3]],
+                         find_paths([[1, 2], [3], [3], []]))
+
+    def test_002(self):
+        """
+        """
+        expected = [[0, 1, 3],
+                    [0, 2, 3],
+                    [0, 1, 2, 3, 4],
+                    [0, 1, 3, 4],
+                    [0, 1, 4],
+                    [0, 3, 4],
+                    [0, 4]]
+
+        actual = find_paths(
+            [[4, 3, 1], [3, 2, 4], [3], [4], []])
+
+        self.assertListEqual(expected, actual)
+
+    def test_003(self):
+        """
+        """
+        expected = [[0, 1, 3],
+                    [0, 2, 3],
+                    [0, 1, 2, 3, 4],
+                    [0, 1, 3, 4],
+                    [0, 1, 4],
+                    [0, 3, 4],
+                    [0, 4],
+                    [0, 1]]
+        actual = find_paths([[1], []])
+        self.assertListEqual(expected, actual)
+
+
 if __name__ == '__main__':
-    print(find_paths([[1, 2], [3], [3], []]))
-    print(find_paths([[4, 3, 1], [3, 2, 4], [3], [4], []]))
-    print(find_paths([[1], []]))
+    unittest.main()
