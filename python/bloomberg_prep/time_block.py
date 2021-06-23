@@ -1,5 +1,5 @@
 """
-## Description
+# Description
 
 Given a list of "Events," return a list of occupied time-blocks
 
@@ -14,7 +14,7 @@ Given a list of "Events," return a list of occupied time-blocks
     - event_names should not be featured in output
     - output does not need to be sorted
 
-## Example
+# Example
 
 input_001 = [
     (100, 300, "event"),
@@ -35,9 +35,43 @@ else:
 
 """
 
+some_list = [0 for _ in range(5)]
+# in memory: [0, 0, 0, 0]
+some_list.append(1)  # O(1)  --  [1, 0, 0, 0]
+some_list.append(2)  # O(1)  --  [1, 2, 0, 0]
+some_list.append(3)  # O(1)  --  [1, 2, 3, 0]
+some_list.append(4)  # O(1)  --  [1, 2, 3, 4]
 
 
+some_list = []
+# let's say that Python initializes with 3 items
+# in memory, `some_list` is represented as `[0, 0, 0]
+some_list.append(1)  # O(1)  --  [1, 0, 0]
+some_list.append(2)  # O(1)  --  [1, 2, 0]
+some_list.append(3)  # O(1)  --  [1, 2, 3]
+some_list.append(4)  # O(n)  --  [1, 2, 3, 4, 0, 0, 0]
 
+
+def time_blocks(events):
+    # O(n log(n)) in the worst case
+    events.sort()
+    first_num, second_num, _ = events[0]
+    result = []
+
+    # for every event in events O(n)
+    for start, end, _ in events[1:]:
+        if start > second_num:
+            # O(n) worst case inside of O(n) loop.... O(n^2)
+            # dynamically sized array
+            result.append([first_num, second_num])
+            first_num, second_num = start, end
+        elif end > second_num:
+            second_num = end
+        elif start < first_num:
+            first_num = start
+
+    result.append([first_num, second_num])
+    return result
 
 
 # 100       300
@@ -158,7 +192,7 @@ if __name__ == '__main__':
 
     for i, test_case in enumerate(test_cases):
         input, expected = test_case
-        actual = time_block_best(input)
+        actual = time_blocks(input)
         print(
             f"TEST {i}\n"
             f"\t{input=}\n"
