@@ -3,10 +3,12 @@ use std::collections::HashMap;
 
 /// https://leetcode.com/problems/all-paths-from-source-to-target/
 struct LeetCode797;
+
 impl LeetCode797 {
     #[allow(dead_code)]
     pub fn all_paths_source_target(graph: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         let map: HashMap<i32, Vec<i32>> = HashMap::new();
+        
     }
 }
 
