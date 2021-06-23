@@ -23,10 +23,46 @@ Note: The results must be returned in sorted order. You can use any built-in sor
 
 
 import unittest
+from collections import deque
 
 
 all_paths = []
 nodes = {}
+
+
+def bfs(source, target):
+    global nodes
+    q = deque()
+    q.append([source])
+    visited = set()
+    while q:
+        path = q.popleft()
+        current = path[-1]
+        if current not in visited:
+            if current == target:
+                return path
+            visited.add(current)
+
+            for next_up in nodes[current]:
+                q.append(path.copy().append(next_up))
+
+
+def all(node):
+    stack = deque()
+    stack.append([node])
+
+    paths = {}
+
+    while stack:
+        path = stack.pop()
+        current = path[-1]
+        if current not in paths:
+            paths[current] = bfs(node, current)
+
+            for next_up in nodes[current]:
+                stack.append(path.copy().append(next_up))
+
+    return paths
 
 
 def traversal(node, current_path):
