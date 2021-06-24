@@ -23,8 +23,8 @@ impl LeetCode797 {
         let mut deque: VecDeque<(i32, Vec<i32>)> = VecDeque::new();
         deque.push_back((0, vec![]));
 
-        while let Some((current_node, x)) = deque.pop_back() {
-            let mut current_path: Vec<i32> = x.iter().cloned().collect();
+        while let Some((current_node, current_path_ref)) = deque.pop_back() {
+            let mut current_path: Vec<i32> = current_path_ref.iter().cloned().collect();
             current_path.push(current_node);
 
             if map.get(&current_node).unwrap().len() < 1 {
@@ -46,12 +46,20 @@ impl LeetCode797 {
 mod tests {
     use super::LeetCode797;
 
+    fn vec_compare(va: Vec<Vec<i32>>, vb: Vec<Vec<i32>>) -> bool {
+        (va.len() == vb.len()) &&  // zip stops at the shortest
+         va.iter()
+           .zip(vb)
+           .all(|(a,b)| (a.len() == b.len()) && a.iter().zip(b).all(|(an, bn)| *an == bn))
+    }
+
     #[test]
     fn leet_code_797_001() {
         let input = vec![vec![1, 2], vec![3], vec![3], vec![]];
         let actual = LeetCode797::all_paths_source_target(input);
         let expected = vec![vec![0, 1, 3], vec![0, 2, 3]];
-        assert_eq!(expected, actual);
+        println!("{:#?}", actual);
+        assert!(vec_compare(expected, actual));
     }
 
     #[test]
@@ -67,7 +75,8 @@ mod tests {
             vec![0, 4],
         ];
         let actual = LeetCode797::all_paths_source_target(input);
-        assert_eq!(expected, actual);
+        println!("{:#?}", actual);
+        assert!(vec_compare(expected, actual));
     }
 
     #[test]
@@ -84,6 +93,7 @@ mod tests {
             vec![0, 1],
         ];
         let actual = LeetCode797::all_paths_source_target(input);
-        assert_eq!(expected, actual);
+        println!("{:#?}", actual);
+        assert!(vec_compare(expected, actual));
     }
 }
