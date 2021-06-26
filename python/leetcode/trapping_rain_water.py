@@ -55,6 +55,10 @@ from collections import deque
 
 class Solution(object):
     def trap_pointers(self, height):
+        """
+        - time: O(n). Single iteration of O(n)
+        - space: O(1) extra space. Only constant space required for `left`, `right`, `left_max`, and `right_max`
+        """
         answer = 0
 
         left = 0
