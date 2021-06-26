@@ -43,29 +43,20 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        count = 0
-        max_count = count
-
-        visited = set()
-
-        current_substring = ""
+        max_count = 0
 
         for i in range(len(s)):
+            count = 0
+            visited = set()
+
             for c in s[i:]:
-                if c not in visited:
-                    count += 1
+                if c in visited:
+                    break
 
-                else:
-                    max_count = max(count, max_count)
-                    count = 1
-                    visited = set()
-                    current_substring = ""
-
+                count += 1
                 visited.add(c)
-                current_substring += str(c)
 
             max_count = max(count, max_count)
-
 
         return max_count
 
@@ -90,6 +81,9 @@ class Test(unittest.TestCase):
 
     def test_005(self):
         self.assertEqual(6, self.fn("asjrgapa"))
+
+    def test_006(self):
+        self.assertEqual(3, self.fn("pwwkew"))
 
 
 if __name__ == "__main__":
