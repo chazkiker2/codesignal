@@ -52,12 +52,39 @@
 pub struct LeetCode088;
 
 impl LeetCode088 {
+    pub fn merge_alt(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {
+        let mut i: usize = 0;
+        let mut j: usize = 0;
+        let m = m as usize;
+        let n = n as usize;
+        let l = nums1.len();
+
+        loop {
+            if j >= n {
+                break;
+            }
+            if i >= (m + j) {
+                for k in j..n {
+                    nums1[i] = nums2[k];
+                    i += 1;
+                }
+                break;
+            }
+            if nums1[i] > nums2[j] {
+                for k in (i + 1..l).rev() {
+                    nums1[k] = nums1[k - 1];
+                }
+                nums1[i] = nums2[j];
+                j += 1;
+            }
+            i += 1;
+        }
+    }
     pub fn merge(nums1: &mut Vec<i32>, m: i32, nums2: &mut Vec<i32>, n: i32) {
         let mut p1: i32 = m - 1;
         let mut p2: i32 = n - 1;
 
         for p in (0..n + m).rev() {
-            // if p2
             if p2 < 0 {
                 break;
             }
@@ -65,9 +92,7 @@ impl LeetCode088 {
             if p1 >= 0 && nums1[p1 as usize] > nums2[p2 as usize] {
                 nums1[p as usize] = nums1[p1 as usize];
                 p1 -= 1;
-            }
-
-            else {
+            } else {
                 nums1[p as usize] = nums2[p2 as usize];
                 p2 -= 1;
             }
@@ -87,6 +112,16 @@ mod tests {
 
         LeetCode088::merge(&mut nums1, 3, &mut nums2, 3);
 
+        assert_eq!(nums1, expected);
+    }
+
+    #[test]
+    fn test_002() {
+        let mut nums1 = vec![0];
+        let mut nums2 = vec![1];
+        let expected = vec![1];
+
+        LeetCode088::merge(&mut nums1, 0, &mut nums2, 1);
         assert_eq!(nums1, expected);
     }
 }
