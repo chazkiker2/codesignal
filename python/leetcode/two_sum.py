@@ -43,8 +43,6 @@ class Solution(object):
         """
         visited = {}
 
-        valid_pairs = []
-
         for i, num in enumerate(nums):
             diff = target - num
             if diff in visited:
