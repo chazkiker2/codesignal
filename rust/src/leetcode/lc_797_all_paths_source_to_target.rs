@@ -1,4 +1,3 @@
-#[allow(dead_code)]
 use std::collections::{HashMap, HashSet, VecDeque};
 use std::iter::FromIterator;
 
@@ -6,7 +5,6 @@ use std::iter::FromIterator;
 pub struct LeetCode797;
 
 impl LeetCode797 {
-    #[allow(dead_code)]
     pub fn all_paths_source_target(graph: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
         let mut all_paths = vec![];
 
