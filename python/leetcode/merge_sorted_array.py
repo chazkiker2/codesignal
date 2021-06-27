@@ -53,6 +53,10 @@ The final sorted array should not be returned by the function, but instead be st
 
 
 class Solution(object):
+    def merge_py(self, nums1, m, nums2, n):
+        nums1[m:m+n] = nums2
+        nums1.sort()
+
     def merge(self, nums1, m, nums2, n):
         """
         You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
