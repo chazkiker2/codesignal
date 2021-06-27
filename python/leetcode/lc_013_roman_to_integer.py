@@ -24,19 +24,29 @@ exc = {
 
 def roman_to_int(s: str) -> int:
     total_sum = 0
+    i = 0
 
-    escaped = set()
-
-    for i, c in enumerate(s):
-        if i in escaped:
-            continue
+    while i < len(s):
+        c = s[i]
         if c in exc and i < len(s) - 1 and s[i+1] in exc[c]:
-            escaped.add(i+1)
+            i += 2
             total_sum += groups[s[i+1]] - groups[c]
         else:
+            i += 1
             total_sum += groups[c]
 
     return total_sum
+
+    # for i, c in enumerate(s):
+    #     if i in escaped:
+    #         continue
+    #     if c in exc and i < len(s) - 1 and s[i+1] in exc[c]:
+    #         escaped.add(i+1)
+    #         total_sum += groups[s[i+1]] - groups[c]
+    #     else:
+    #         total_sum += groups[c]
+
+    # return total_sum
 
 
 class Test(unittest.TestCase):
