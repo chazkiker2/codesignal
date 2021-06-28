@@ -62,7 +62,28 @@ impl TreeNode {
 pub struct LeetCode114;
 
 impl LeetCode114 {
-    
+    pub fn flatten_recursive(
+        root: &mut Option<Rc<RefCell<TreeNode>>>,
+    ) -> Option<Rc<RefCell<TreeNode>>> {
+        if let Some(node_pointer) = root {
+            let mut inner_node = node_pointer.borrow_mut();
+            let leftmost = Self::flatten_recursive(&mut inner_node.left);
+            let rightmost = Self::flatten_recursive(&mut inner_node.right);
+            if let Some(l) = leftmost.as_ref() {
+                l.borrow_mut().right = inner_node.right.take();
+            }
+            if let Some(right_pointer) = rightmost {
+                Some(right_pointer.clone())
+            } else if let Some(left_pointer) = leftmost {
+                Some(left_pointer.clone())
+            } else {
+                Some(node_pointer.clone())
+            }
+        } else {
+            None
+        }
+    }
+
     pub fn flatten(root: &mut Option<Rc<RefCell<TreeNode>>>) {
         let mut current = root.clone();
 
