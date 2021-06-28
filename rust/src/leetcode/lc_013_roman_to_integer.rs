@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-
 pub struct LeetCode013;
 impl LeetCode013 {
     pub fn roman_to_int_better(s: String) -> i32 {
@@ -26,7 +24,7 @@ impl LeetCode013 {
                     let mut curr = rtoi(ch);
 
                     if prev < curr {
-                        curr -= (prev + prev);
+                        curr -= prev + prev;
                     }
 
                     curr
