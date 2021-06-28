@@ -51,7 +51,11 @@ class TreeNode:
 
 
 class Solution:
-    def flatten_alt(self, root):
+    def flatten(self, root: TreeNode) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        # Handle the null scenario
         if not root:
             return
 
@@ -61,16 +65,14 @@ class Solution:
         while stack:
             node = stack.pop()
 
-            if node:
-                stack.append(node.right)
-                stack.append(node.left)
+            node.right and stack.append(node.right)
+            node.left and stack.append(node.left)
 
-                if prev:
-                    prev.right = node
-                    prev.left = None
-                    node.left = None
+            if prev:
+                prev.right = node
+                prev.left = None
 
-                prev = node
+            prev = node
 
     def flatten_o1_space(self, root: TreeNode) -> None:
         # handle `None`
@@ -95,63 +97,8 @@ class Solution:
 
             node = node.right
 
-    def flatten(self, root: TreeNode) -> None:
-        """
-        Do not return anything, modify root in-place instead.
-        """
-        # Handle the null scenario
-        if not root:
-            return None
 
-        START, END = 1, 2
-
-        tail = None
-        stack = deque([(root, START)])
-
-        while stack:
-
-            current, recursion = stack.pop()
-
-            if not current.left and not current.right:
-                tail = current
-                continue
-
-            # If the node is in the START state, it means we still
-            # haven't processed it's left child yet.
-            if recursion == START:
-
-                # If the current node has a left child, we add it
-                # to the stack AFTER adding the current node again
-                # to the stack with the END recursion state.
-                if current.left:
-                    stack.append((current, END))
-                    stack.append((current.left, START))
-                elif current.right:
-
-                    # In case the current node didn't have a left child
-                    # we will add it's right child
-                    stack.append((current.right, START))
-            else:
-                # If the current node is in the END recursion state,
-                # that means we did process one of it's children. Left
-                # if it existed, else right.
-                rightNode = current.right
-
-                # If there was a left child, there must have been a leaf
-                # node and so, we would have set the tailNode
-                if tail:
-
-                    # Establish the proper connections.
-                    tail.right = current.right
-                    current.right = current.left
-                    current.left = None
-                    rightNode = tail.right
-
-                if rightNode:
-                    stack.append((rightNode, START))
-
-
-class TrialTestBaseCase(unittest.TestCase):
+class Test(unittest.TestCase):
     def assert_nodes(self, expected_list, node):
         actual_list = self.get_nodes_list(node)
         self.assertListEqual(expected_list, actual_list)
@@ -211,7 +158,7 @@ class TrialTestBaseCase(unittest.TestCase):
 if __name__ == "__main__":
     sol = Solution()
     suite = AbstractSuite(
-        TrialTestBaseCase,
-        [sol.flatten, sol.flatten_alt, sol.flatten_o1_space],
+        Test,
+        [sol.flatten, sol.flatten_o1_space],
     )
     suite.run()
