@@ -62,18 +62,26 @@ impl TreeNode {
 pub struct LeetCode114;
 
 impl LeetCode114 {
-    fn _pre_order(root: Option<Rc<RefCell<TreeNode>>>, result: &mut Vec<i32>) {
-        if let Some(node) = root {
-            result.push(node.borrow().val);
-            Self::_pre_order(node.borrow().left.clone(), result);
-            Self::_pre_order(node.borrow().right.clone(), result);
-        }
-    }
-
+    
     pub fn flatten(root: &mut Option<Rc<RefCell<TreeNode>>>) {
-        let mut result: Vec<i32> = vec![];
-        Self::_pre_order(root.clone(), &mut result);
-        println!("{:#?}", result);
+        let mut current = root.clone();
+
+        while let Some(node_pointer) = current {
+            let mut inner_node = node_pointer.borrow_mut();
+
+            if let Some(l) = inner_node.left.clone() {
+                let mut rightmost = l.clone();
+                while let Some(more_right) = rightmost.clone().borrow().right.clone() {
+                    rightmost = more_right
+                }
+
+                rightmost.borrow_mut().right = inner_node.right.clone();
+                inner_node.right = inner_node.left.clone();
+                inner_node.left = None;
+            }
+
+            current = inner_node.right.clone();
+        }
     }
 }
 
@@ -98,21 +106,6 @@ mod tests {
 
         LeetCode114::flatten(&mut Some(Rc::new(RefCell::new(root))));
 
-        assert_eq!(1, 1);
-    }
-
-    /// - Input: root = []
-    /// - Output: []
-    #[test]
-    fn test_002() {
-        
-        assert_eq!(1, 1);
-    }
-
-    /// - Input: root = [0]
-    /// - Output: [0]
-    #[test]
-    fn test_003() {
         assert_eq!(1, 1);
     }
 }
