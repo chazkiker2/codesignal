@@ -37,7 +37,6 @@ class Solution:
         while popping:
             popped = False
             for i in range(len(arr)-1):
-
                 if i+1 < len(arr) and arr[i] == arr[i+1]:
                     arr.pop(i)
                     arr.pop(i)

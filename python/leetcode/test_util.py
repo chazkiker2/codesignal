@@ -19,3 +19,7 @@ class AbstractSuite:
     def run(self):
         runner = unittest.TextTestRunner()
         runner.run(self.suite)
+
+
+def run_suite(base_case, functions):
+    AbstractSuite(base_case, functions).run()
