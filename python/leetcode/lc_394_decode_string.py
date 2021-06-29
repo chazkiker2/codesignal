@@ -33,12 +33,11 @@ Constraints:
 s consists of lowercase English letters, digits, and square brackets '[]'.
 s is guaranteed to be a valid input.
 All the integers in s are in the range [1, 300].
-
 """
+
 import unittest
 from collections import deque
 import test_util
-import re
 
 
 class Solution:
@@ -55,9 +54,6 @@ class Solution:
 
         def is_digit(ch):
             return valid_digits[0] <= ord(ch) <= valid_letters[1]
-
-        def is_letter(letter):
-            return valid_letters[0] <= ord(ch) <= valid_letters[1]
 
         for ch in s:
             if ch == "[":
@@ -81,42 +77,6 @@ class Solution:
                 current_string += ch
 
         return current_string
-
-        # START, END = '[', ']'
-
-        # new_seq = [False, ""]
-        # num_rep = 1
-        # # print('[' == "[")
-        # for c in s:
-        #     if c == START:
-        #         new_seq[0] = True
-        #     elif c == END:
-        #         stack.append((num_rep, new_seq[1]))
-        #         # for _ in range(num_rep):
-        #         #     stack.append(new_seq[1])
-        #         num_rep = 1
-        #         new_seq = [False, ""]
-
-        #     elif is_letter(c):
-        #         if new_seq[0]:
-        #             new_seq[1] += c
-        #         else:
-        #             stack.append((num_rep, c))
-        #             # for _ in range(num_rep):
-        #             #     stack.append(c)
-        #     else:
-        #         num_rep = int(c)
-        #         # stack.append(num_rep)
-        #         # num_rep = int(c)
-
-        # print(stack)
-
-        # while stack:
-        #     num_rep, seq = stack.popleft()
-        #     for _ in range(num_rep):
-        #         ret += seq
-
-        # return ret
 
 
 class Test(unittest.TestCase):

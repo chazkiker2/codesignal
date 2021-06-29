@@ -34,15 +34,7 @@ impl LeetCode013 {
 
         ret
     }
-    // MDCCCLXXXIV
-    // M        1000        1000
-    // D        500          500
-    // CCC      100 * 3      300
-    // L        50            50
-    // XXX      10 * 3        30
-    // IV       4              4
-    // -------------------------
-    //                      1884
+
     pub fn roman_to_int(s: String) -> i32 {
         fn rtoi(ch: char) -> u32 {
             match ch {
@@ -129,6 +121,16 @@ mod tests {
         assert_eq!(1994, LeetCode013::roman_to_int(String::from("MCMXCIV")))
     }
 
+    // MDCCCLXXXIV
+    // 
+    // M        1000        1000
+    // D        500          500
+    // CCC      100 * 3      300
+    // L        50            50
+    // XXX      10 * 3        30
+    // IV       4              4
+    // -------------------------
+    //                      1884
     #[test]
     fn test_006() {
         assert_eq!(1884, LeetCode013::roman_to_int(String::from("MDCCCLXXXIV")))
