@@ -3,7 +3,10 @@
 
 [Leetcode 13: Roman to Integer]: https://leetcode.com/problems/roman-to-integer/
 """
+# from code.test_util import AbstractSuite
 import unittest
+import code
+
 
 groups = {
     "M": 1000,
@@ -50,10 +53,6 @@ def roman_to_int(s: str) -> int:
 
 
 class Test(unittest.TestCase):
-    def setUp(self) -> None:
-        super().setUp()
-        self.fn = roman_to_int
-
     def test_001(self):
         self.assertEqual(3, self.fn("III"))
 
@@ -71,4 +70,9 @@ class Test(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    print(dir(code))
+    print(code.__all__)
+    print(code.__package__)
+    print(code.__name__)
+    # print(code.__spec__)
+    # AbstractSuite(Test, [roman_to_int]).run()
