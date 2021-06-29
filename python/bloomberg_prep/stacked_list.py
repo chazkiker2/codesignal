@@ -1,3 +1,83 @@
+"""
+Given a multi-level Linked List, modify the List to flatten it into one level.
+
+## `Node` class
+
+```python
+class Node:
+    def __init__(self, data, next=None, down=None):
+        self.data = data
+        self.next = next
+        self.down = down
+```
+
+## INPUT:
+
+- the head of the multi-level linked list. Each node has `data`, `next` and `down`
+- assume if a Node does not have a Next node that `node.next` is `None`
+- assume if a Node does not have a node below, that `node.down` is `None`
+
+## OUTPUT:
+
+- modify the linked list so that it is no longer multi-level
+- return nothing
+
+
+
+## Examples
+
+
+### Example One
+
+Input:
+
+[1] -> [3]
+ |
+[2]
+
+
+Output:
+
+[1] -> [2] -> [3]
+
+
+### Example Two
+
+Input:
+
+[1] -> [2] -> [3] -> [8] -> [10]
+               |      |
+               |     [9]
+               |
+              [4] -> [5] -> [6]
+                             |
+                            [7]
+
+Output:
+
+[1] -> [2] -> [3] -> [4] -> [5] -> [6] -> [7] -> [8] -> [9] -> [10]
+
+
+### Example Three
+
+Input:
+
+[1] -> [2] -> [3] -> [10] -> [12]
+               |      |
+               |     [11]
+               |
+              [4] -> [7] -> [8]
+               |             |
+               |            [9]
+               |
+              [5] -> [6]
+
+Output:
+
+[1] -> [2] -> [3] -> [4] -> [5] -> [6] -> [7] -> [8] -> [9] -> [10] -> [11] -> [12]
+
+"""
+
 # class Node:
 #     Node next
 #     Node down
@@ -51,44 +131,55 @@
 #               [4] -> [5] -> [6]
 #                              |
 #                             [7]
-
-"""
-- flatten linked list
-- while node has a down pointer, change down to right
-- once we're out of downs, go to next
-- assume input is head
-- assume if node doesn't have down, down is None
-
-
-while head.down:
-    head.down.next = head.next
-    head.next = head.down
-    head = head.next
-
-head ->
-
-"""
-
+#
+# - flatten linked list
+# - while node has a down pointer, change down to right
+# - once we're out of downs, go to next
+# - assume input is head
+# - assume if node doesn't have down, down is None
+#
+# while head.down:
+#     head.down.next = head.next
+#     head.next = head.down
+#     head = head.next
+#
+# head ->
+#
+# [8] -> [10]
+# [8] -> [10]
+#  |
+# [9] -> [10]
+#  |
+# [X]
+#
+# as soon as we hit a node with DOWN
+# (TAIL of DOWN_LIST).next = head.next ---
+#
+# node.next HEAD of the DOWN_LIST
+# tail
+# head.down.nxt = head.nxt
+# head.nxt = head.down # 8 -> 9 -> 10
+# head = head.nxt  # 9
 
 import unittest
-from python.test_util import AbstractSuite
+from test_util import AbstractSuite
 
 
 class Node(object):
-    def __init__(self, data, nxt=None, down=None):
+    def __init__(self, data, next=None, down=None):
         super().__init__()
         self.data = data
-        self.nxt = nxt
+        self.next = next
         self.down = down
 
     def __repr__(self):
         return f"Node({self.data})"
 
     def print(self):
-        return f"<Node: {self.data=}, {self.nxt=}, {self.down=}>"
+        return f"<Node: {self.data=}, {self.next=}, {self.down=}>"
 
 
-def flatten_linked_list_in_interview(head: Node) -> Node:
+def flatten_linked_list_in_interview(head: Node):
     """
     :returns: head of the flattened linked list
     """
@@ -96,9 +187,9 @@ def flatten_linked_list_in_interview(head: Node) -> Node:
     # current.next = current.down if not None
 
     if not head:
-        return head
+        return
 
-    while head.down or head.nxt:
+    while head.down or head.next:
         if head.down:
 
             tail = head.down
@@ -106,20 +197,18 @@ def flatten_linked_list_in_interview(head: Node) -> Node:
             while tail.nxt:
                 tail = tail.nxt
 
-            tail.nxt = head.nxt
-            head.nxt = head.down
+            tail.nxt = head.next
+            head.next = head.down
             head.down = None
 
-            if head.nxt:
-                head = head.nxt
+            if head.next:
+                head = head.next
 
         else:
-            head = head.nxt
-
-    return head
+            head = head.next
 
 
-def flatten_linked_list(head: Node) -> Node:
+def flatten_linked_list(head: Node):
     """
     :returns: head of the flattened linked list
     """
@@ -127,74 +216,119 @@ def flatten_linked_list(head: Node) -> Node:
     # current.next = current.down if not None
 
     if not head:
-        return head
+        return
 
     current = head
 
-    dummy_node = Node("*")
-    dummy_node.nxt = current
-
-    while current.down or current.nxt:
+    while current.down or current.next:
         if current.down:
 
             tail = current.down
 
-            while tail.nxt:
-                tail = tail.nxt
+            while tail.next:
+                tail = tail.next
 
-            tail.nxt = current.nxt
-            current.nxt = current.down
+            tail.next = current.next
+            current.next = current.down
             current.down = None
 
-            if current.nxt:
-                current = current.nxt
+            if current.next:
+                current = current.next
 
         else:
-            current = current.nxt
-
-    return dummy_node.nxt
-
-    # [8] -> [10]
-    #  |
-    # [9] -> [10]
-    #  |
-    # [X]
-
-    # as soon as we hit a node with DOWN
-    # (TAIL of DOWN_LIST).next = head.next ---
-
-    # node.next HEAD of the DOWN_LIST
-    # tail
-    # head.down.nxt = head.nxt
-    # head.nxt = head.down # 8 -> 9 -> 10
-    # head = head.nxt  # 9
+            current = current.next
 
 
 class Test(unittest.TestCase):
-    def test_001(self):
+    def make_input_nodes(self, max_node, connections):
         nodes = {}
-
-        for i in range(1, 11):
-
+        output = {}
+        for i in range(1, max_node+1):
             nodes[i] = Node(i)
+            output[i] = Node(i)
 
-        connections = [
-            (1, 2, None),
-            (2, 3, None),
-            (3, 8, 4),
-            (4, 5, None),
-            (5, 6, None),
-            (6, None, 7),
-            (8, 10, 9),
-        ]
-        for node, nxt, down in connections:
-            if nxt:
-                nodes[node].nxt = nodes[nxt]
+        for node, next, down in connections:
+            if next:
+                nodes[node].next = nodes[next]
             if down:
-                nodes[node].down = down
+                nodes[node].down = nodes[down]
 
-        nodes[1].next = nodes[2]
-        new_head = self.fn(nodes[1])
+        for i in range(1, max_node):
+            output[i].next = output[i+1]
+            output[i].down = None
+
+        return nodes[1], output[1]
+
+    def assert_linked_list(self, expected, actual):
+        while expected:
+            self.assertEqual(expected.data, actual.data)
+            self.assertIsNone(actual.down)
+            actual = actual.next
+            expected = expected.next
+
+        self.assertIsNone(actual)
+
+    def make_test(self, max_node, connections):
+        input_head, expected_head = self.make_input_nodes(
+            max_node, connections)
+        flatten_linked_list(input_head)
+        self.assert_linked_list(expected_head, input_head)
+
+    def test_001(self):
+        self.make_test(
+            max_node=3,
+            connections=[(1, 3, 2)]
+        )
+
+    def test_002(self):
+        self.make_test(
+            max_node=10,
+            connections=[
+                (1, 2, None),
+                (2, 3, None),
+                (3, 8, 4),
+                (4, 5, None),
+                (5, 6, None),
+                (6, None, 7),
+                (8, 10, 9),
+            ]
+        )
+
+    def test_003(self):
+        self.make_test(
+            max_node=12,
+            connections=[
+                (1, 2, None),
+                (2, 3, None),
+                (3, 10, 4),
+                (4, 7, 5),
+                (5, 6, None),
+                (7, 8, None),
+                (8, None, 9),
+                (10, 12, 11),
+            ]
+        )
+
+    # def test_001(self):
+    #     nodes = {}
+
+    #     for i in range(1, 11):
+    #         nodes[i] = Node(i)
+
+    #     connections = [
+    #         (1, 2, None),
+    #         (2, 3, None),
+    #         (3, 8, 4),
+    #         (4, 5, None),
+    #         (5, 6, None),
+    #         (6, None, 7),
+    #         (8, 10, 9),
+    #     ]
+    #     for node, nxt, down in connections:
+    #         if nxt:
+    #             nodes[node].nxt = nodes[nxt]
+    #         if down:
+    #             nodes[node].down = nodes[down]
 
 
 # [1] -> [2] -> [3] -> [8] -> [10]
@@ -205,4 +339,5 @@ class Test(unittest.TestCase):
 #                              |
 #                             [7]
 if __name__ == "__main__":
-    AbstractSuite(Test, [flatten_linked_list]).run()
+    unittest.main()
+    # AbstractSuite(Test, [flatten_linked_list]).run()

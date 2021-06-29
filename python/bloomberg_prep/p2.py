@@ -1,4 +1,59 @@
-# Start typing here
+"""
+Given a Binary Tree with each node as a letter, return the lexigraphically smallest path from leaf to root
+
+
+EXAMPLE ONE
+
+           B
+         /   \\
+        C       D
+      /   \\     \\
+    Z       F      A
+              \\
+                B
+
+All possible paths from leaf to node:
+- BFCB
+- ZCB
+- ADB
+
+Return ADB b/c A < Z and A < B
+
+
+EXAMPLE TWO
+
+           B
+         /  \\
+        C     D
+        \\    \\
+         F     X
+          \\
+            B
+
+All possible paths from leaf to node:
+- BFCB
+- XDB
+
+Return BFCB b/c B < X
+
+
+Notes:
+
+- binary tree is not necessarily balanced
+- function receives the tree head
+
+
+"""
+
+
+# class Node:
+#     def __init__(self, data, left=None, right=None):
+#         self.data = data
+#         self.left = left
+#         self.right = right
+
+# def find_smallest_leaf_to_node(head: Node) -> str:
+#     return ""
 
 #         B
 #   C         D
