@@ -1,4 +1,5 @@
 pub mod bloomberg;
+pub mod fractal;
 pub mod leetcode;
 
 #[cfg(test)]

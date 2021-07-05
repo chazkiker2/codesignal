@@ -1,4 +1,5 @@
 use std::collections::{HashMap, HashSet, VecDeque};
+use std::convert::TryInto;
 use std::iter::FromIterator;
 
 /// https://leetcode.com/problems/all-paths-from-source-to-target/
@@ -36,7 +37,13 @@ impl LeetCode797 {
             }
         }
 
-        all_paths
+        let target_node: i32 = graph.len().try_into().unwrap();
+        let target_node: i32 = target_node - 1;
+        let valid_paths = all_paths
+            .into_iter()
+            .filter(|path| path[0] == 0 && path[path.len() - 1] == target_node)
+            .collect();
+        valid_paths
     }
 }
 
@@ -45,10 +52,32 @@ mod tests {
     use super::LeetCode797;
 
     fn vec_compare(va: Vec<Vec<i32>>, vb: Vec<Vec<i32>>) -> bool {
-        (va.len() == vb.len()) &&  // zip stops at the shortest
-         va.iter()
-           .zip(vb)
-           .all(|(a,b)| (a.len() == b.len()) && a.iter().zip(b).all(|(an, bn)| *an == bn))
+        let mut va = va.clone();
+        let mut vb = vb.clone();
+
+        va.sort();
+        vb.sort();
+
+        let eq = (va.len() == vb.len())
+            && va.iter().zip(vb.clone()).all(|(a, b)| {
+                let mut a = a.clone();
+                let mut b = b.clone();
+
+                a.sort();
+                b.sort();
+
+                (a.len() == b.len()) && a.iter().zip(b).all(|(an, bn)| *an == bn)
+            });
+        if !eq {
+            println!(
+                "EXPECTED: len={}{:#?}\nACTUAL: len={}{:#?}",
+                va.len(),
+                va,
+                vb.len(),
+                vb
+            );
+        }
+        eq
     }
 
     #[test]
@@ -88,6 +117,14 @@ mod tests {
             vec![0, 4],
             vec![0, 1],
         ];
+        let actual = LeetCode797::all_paths_source_target(input);
+        assert!(vec_compare(expected, actual));
+    }
+
+    #[test]
+    fn leet_code_797_004() {
+        let input = vec![vec![4, 3, 1], vec![3, 2, 4], vec![], vec![4], vec![]];
+        let expected = vec![vec![0, 4], vec![0, 3, 4], vec![0, 1, 3, 4], vec![0, 1, 4]];
         let actual = LeetCode797::all_paths_source_target(input);
         assert!(vec_compare(expected, actual));
     }
